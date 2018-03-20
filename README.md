@@ -77,7 +77,8 @@ index - 0:顺序播放， 1:随机播放 ， 2:单曲循环
 ```
 
 #### 设置事件监听
-支持的事件(对应小程序的原生事件)："play"|"canplay"|"next"|"prev"|"pause"|"stop"|"ended"|"timeupdate"|"error"|"waiting"
+支持的事件(对应小程序的原生事件)：
+"play"|"canplay"|"next"|"prev"|"pause"|"stop"|"ended"|"timeupdate"|"error"|"waiting"
 ```
 监听事件：
 audio.on(name, listener);
