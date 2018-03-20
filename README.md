@@ -11,7 +11,7 @@
 - [x] 播放器事件监听支持多个，支持监听器单次触发
 
 ## 用法
-
+
 ### 1. 把dist中的audio.js引入你的小程序，在使用的地方
 ```
 const audio = require('yourDir/audio.js');
