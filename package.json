@@ -1,0 +1,23 @@
+{
+  "name": "we_backaudio",
+  "version": "1.0.0",
+  "author": "foora",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foora/we_backAudio.git"
+  },
+  "homepage": "https://github.com/foora/we_backAudio#readme",
+  "bugs": {
+    "url": "https://github.com/foora/we_backAudio/issues"
+  },
+  "scripts": {
+    "build": "gulp"
+  },
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^4.0.1",
+    "rollup": "^0.57.1",
+    "typescript": "^2.7.2"
+  }
+}

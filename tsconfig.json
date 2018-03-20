@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "baseUrl": "./",
+        "target": "ES6",
+        "lib": ["es2015", "es2016", "es2017", "esnext"],
+        "module": "es2015",
+        "outDir": "./dist",
+        "alwaysStrict": true,
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "strict": true,
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "inlineSources": true
+    },
+    "include": ["./src"]
+  }
