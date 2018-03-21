@@ -91,5 +91,8 @@ audio.remove(name, listener);
 
 删除某个事件的所有监听：
 audio.remove(name);
+
+删除所有事件监听
+audio.remove();
 ```
 

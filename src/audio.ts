@@ -158,6 +158,9 @@ export default class AudioPlayer {
      * 监听事件
      */
     on(name: eventType, listener: () => void): void {
+        if (typeof listener !== 'function') {
+            throw new TypeError('listener is not a function');
+        }
         this.eventManger.add(name, listener);
     }
 
@@ -165,6 +168,9 @@ export default class AudioPlayer {
      * 监听事件（触发一次）
      */
     once(name: eventType, listener: () => void): void {
+        if (typeof listener !== 'function') {
+            throw new TypeError('listener is not a function');
+        }
         let fn = (...args) => {
             listener.apply(null, args);
             this.eventManger.remove(name, fn);
@@ -174,7 +180,10 @@ export default class AudioPlayer {
     /**
      * 删除事件
      */
-    remove(name: eventType, listener?: () => void): void {
+    remove(name?: eventType, listener?: () => void): void {
+        if (listener && typeof listener !== 'function') {
+            throw new TypeError('listener is not a function');
+        }
         this.eventManger.remove(name, listener);
     }
     /**

@@ -59,24 +59,21 @@ class Mode {
 
 class EventManager {
     constructor() {
-        this.eventList = {
-            play: [],
-            canplay: [],
-            next: [],
-            prev: [],
-            pause: [],
-            stop: [],
-            ended: [],
-            timeupdate: [],
-            error: [],
-            waiting: []
-        };
+        this.eventList = {};
     }
     add(name, listener) {
+        if (!name || !listener)
+            return;
+        if (this.eventList[name] === undefined) {
+            this.eventList[name] = [];
+        }
         this.eventList[name].push(listener);
     }
     remove(name, listener) {
-        if (!listener) {
+        if (!name && !listener) {
+            this.eventList = {};
+        }
+        else if (!listener) {
             this.eventList[name] = [];
         }
         else if (this.eventList[name]) {
@@ -214,12 +211,18 @@ class AudioPlayer {
      * 监听事件
      */
     on(name, listener) {
+        if (typeof listener !== 'function') {
+            throw new TypeError('listener is not a function');
+        }
         this.eventManger.add(name, listener);
     }
     /**
      * 监听事件（触发一次）
      */
     once(name, listener) {
+        if (typeof listener !== 'function') {
+            throw new TypeError('listener is not a function');
+        }
         let fn = (...args) => {
             listener.apply(null, args);
             this.eventManger.remove(name, fn);
@@ -230,6 +233,9 @@ class AudioPlayer {
      * 删除事件
      */
     remove(name, listener) {
+        if (listener && typeof listener !== 'function') {
+            throw new TypeError('listener is not a function');
+        }
         this.eventManger.remove(name, listener);
     }
     /**

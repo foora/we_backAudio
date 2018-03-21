@@ -1,33 +1,28 @@
 import { eventType } from './config';
 
 type EventList = {
-    [prop in eventType]: Function[];
+    [prop in eventType]?: Function[];
 }
 
 export default class EventManager {
     private eventList: EventList;
     constructor() {
-        this.eventList = {
-            play: [],
-            canplay: [],
-            next: [],
-            prev: [],
-            pause: [],
-            stop: [],
-            ended: [],
-            timeupdate: [],
-            error: [],
-            waiting: []
-        };
+        this.eventList = {};
     }
     add(name: eventType, listener: () => void): void {
-        this.eventList[name].push(listener);
-    }
-    remove(name: eventType, listener? : () => void): void {
-        if (!listener) {
+        if (!name || !listener) return;
+        if (this.eventList[name] === undefined) {
             this.eventList[name] = [];
-        } else if (this.eventList[name]) {
-            this.eventList[name] = this.eventList[name].filter((item) => item !== listener);
+        }
+        (this.eventList[name] as Function[]).push(listener);
+    }
+    remove(name?: eventType, listener? : () => void): void {
+        if (!name && !listener) {
+            this.eventList = {};
+        } else if (!listener) {
+            this.eventList[(name as eventType)] = [];
+        } else if (this.eventList[(name as eventType)]) {
+            this.eventList[(name as eventType)] = (this.eventList[(name as eventType)] as Function[]).filter((item) => item !== listener);
         }
     }
     get(name: eventType): Array<Function> {
