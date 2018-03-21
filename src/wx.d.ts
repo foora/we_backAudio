@@ -27,7 +27,7 @@ interface backAudio {
     pause: () => void
     stop: () => void
     seek: (position: number) => void
-    onCanPlay: (callback: () => void) => void
+    onCanplay: (callback: () => void) => void
     onPlay: (callback: () => void) => void
     onPause: (callback: () => void) => void
     onStop: (callback: () => void) => void

@@ -25,6 +25,14 @@ export default class EventManager {
             this.eventList[(name as eventType)] = (this.eventList[(name as eventType)] as Function[]).filter((item) => item !== listener);
         }
     }
+    emit(name: eventType, ...args: any[]) {
+        let stack = this.eventList[(name as eventType)];
+        if (stack) {
+            for(let i = 0, len = stack.length; i < len; i++) {
+                stack[i](...args);
+            }
+        }
+    }
     get(name: eventType): Array<Function> {
         return this.eventList[name] || [];
     }

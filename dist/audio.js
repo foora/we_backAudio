@@ -80,6 +80,14 @@ class EventManager {
             this.eventList[name] = this.eventList[name].filter((item) => item !== listener);
         }
     }
+    emit(name, ...args) {
+        let stack = this.eventList[name];
+        if (stack) {
+            for (let i = 0, len = stack.length; i < len; i++) {
+                stack[i](...args);
+            }
+        }
+    }
     get(name) {
         return this.eventList[name] || [];
     }
@@ -126,6 +134,7 @@ class AudioPlayer {
         }
         this.playList = playList;
         this.start(index);
+        this.eventManger.emit('listchange');
     }
     /**
      * 开始播放
@@ -160,6 +169,7 @@ class AudioPlayer {
      */
     setMode(index) {
         this.mode.setMode(index);
+        this.eventManger.emit('modechange');
     }
     /**
      * 播放下一个
@@ -167,10 +177,7 @@ class AudioPlayer {
     next() {
         let index = this.mode.getNext(this.playList.length, this.index);
         this.start(index);
-        let stack = this.eventManger.get('next');
-        for (let i = 0, len = stack.length; i < len; i++) {
-            stack[i](this.playList[index], index);
-        }
+        this.eventManger.emit('next', this.playList[index], index);
     }
     /**
      * 播放上一个
@@ -178,10 +185,7 @@ class AudioPlayer {
     prev() {
         let index = this.mode.getPrev(this.playList.length, this.index);
         this.start(index);
-        let stack = this.eventManger.get('prev');
-        for (let i = 0, len = stack.length; i < len; i++) {
-            stack[i](this.playList[index], index);
-        }
+        this.eventManger.emit('prev', this.playList[index], index);
     }
     /**
      * 跳转到指定位置
@@ -242,48 +246,13 @@ class AudioPlayer {
      * 原生事件监听
      */
     onNativeEvent() {
-        this.audio.onPlay(() => {
-            let stack = this.eventManger.get('play');
-            for (let i = 0, len = stack.length; i < len; i++) {
-                stack[i]();
-            }
-        });
-        this.audio.onCanPlay(() => {
-            let stack = this.eventManger.get('canplay');
-            for (let i = 0, len = stack.length; i < len; i++) {
-                stack[i]();
-            }
-        });
-        this.audio.onPause(() => {
-            let stack = this.eventManger.get('pause');
-            for (let i = 0, len = stack.length; i < len; i++) {
-                stack[i]();
-            }
-        });
-        this.audio.onStop(() => {
-            let stack = this.eventManger.get('stop');
-            for (let i = 0, len = stack.length; i < len; i++) {
-                stack[i]();
-            }
-        });
-        this.audio.onTimeUpdate(() => {
-            let stack = this.eventManger.get('timeupdate');
-            for (let i = 0, len = stack.length; i < len; i++) {
-                stack[i]();
-            }
-        });
-        this.audio.onError((e) => {
-            let stack = this.eventManger.get('error');
-            for (let i = 0, len = stack.length; i < len; i++) {
-                stack[i](e);
-            }
-        });
-        this.audio.onWaiting(() => {
-            let stack = this.eventManger.get('waiting');
-            for (let i = 0, len = stack.length; i < len; i++) {
-                stack[i]();
-            }
-        });
+        this.audio.onPlay(() => this.eventManger.emit('play'));
+        this.audio.onCanplay(() => this.eventManger.emit('canplay'));
+        this.audio.onPause(() => this.eventManger.emit('pause'));
+        this.audio.onStop(() => this.eventManger.emit('stop'));
+        this.audio.onTimeUpdate(() => this.eventManger.emit('timeupdate'));
+        this.audio.onError((e) => this.eventManger.emit('error'));
+        this.audio.onWaiting(() => this.eventManger.emit('waiting'));
         // 监听原生音频播放器事件
         if (isIOS) {
             // ios系统音乐播放面板下一曲
@@ -297,10 +266,7 @@ class AudioPlayer {
         }
         // 音频自然播放结束
         this.audio.onEnded(() => {
-            let stack = this.eventManger.get('ended');
-            for (let i = 0, len = stack.length; i < len; i++) {
-                stack[i]();
-            }
+            this.eventManger.emit('ended');
             if (this._autoPlay) {
                 this.next();
             }

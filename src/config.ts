@@ -7,7 +7,7 @@ export interface ModeType {
     stra: (total: number, index: number, isPrev?: boolean) => number
 }
 
-export type eventType = "play"|"canplay"|"next"|"prev"|"pause"|"stop"|"ended"|"timeupdate"|"error"|"waiting";
+export type eventType = "play"|"canplay"|"next"|"prev"|"pause"|"stop"|"ended"|"timeupdate"|"error"|"waiting"|"modechange"|"listchange";
 
 
 const modeList: Array<ModeType> = [
