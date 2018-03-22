@@ -77,12 +77,19 @@ class EventManager {
             this.eventList[name] = [];
         }
         else if (this.eventList[name]) {
-            this.eventList[name] = this.eventList[name].filter((item) => item !== listener);
+            let stack = this.eventList[name];
+            for (let i = 0, len = stack.length; i < len; i++) {
+                if (stack[i] === listener) {
+                    stack.splice(i, 1);
+                    return;
+                }
+            }
         }
     }
     emit(name, ...args) {
         let stack = this.eventList[name];
         if (stack) {
+            stack = stack.slice(0);
             for (let i = 0, len = stack.length; i < len; i++) {
                 stack[i](...args);
             }

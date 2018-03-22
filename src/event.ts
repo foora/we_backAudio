@@ -22,12 +22,19 @@ export default class EventManager {
         } else if (!listener) {
             this.eventList[(name as eventType)] = [];
         } else if (this.eventList[(name as eventType)]) {
-            this.eventList[(name as eventType)] = (this.eventList[(name as eventType)] as Function[]).filter((item) => item !== listener);
+            let stack = this.eventList[(name as eventType)] as Function[];
+            for (let i = 0, len = stack.length; i < len; i++) {
+                if (stack[i] === listener) {
+                    stack.splice(i, 1);
+                    return;
+                }
+            }
         }
     }
     emit(name: eventType, ...args: any[]) {
         let stack = this.eventList[(name as eventType)];
         if (stack) {
+            stack = stack.slice(0);
             for(let i = 0, len = stack.length; i < len; i++) {
                 stack[i](...args);
             }

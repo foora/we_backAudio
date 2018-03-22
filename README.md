@@ -76,7 +76,8 @@ audio.setMode(index)
 index - 0:顺序播放， 1:随机播放 ， 2:单曲循环
 ```
 
-#### 设置事件监听
+#### 设置事件监听 
+
 支持的事件(对应小程序的原生事件):
 "play"|"canplay"|"next"|"prev"|"pause"|"stop"|"ended"|"timeupdate"|"error"|"waiting"
 
@@ -87,6 +88,9 @@ prev和next事件携带两个参数:
 额外支持的事件:
 - modechange: 播放播放改变    
 - listchange: 播放播单改变
+
+增加监听和删除监听时注意点:     
+1. 若在listener函数中设置新的listenr或者删除旧的listenr，这些改动只会在下一次事件触发时生效。不会影响到本次事件触发的listener执行       
 
 ```
 监听事件：
