@@ -90,7 +90,7 @@ prev和next事件携带两个参数:
 - listchange: 播放播单改变
 
 增加监听和删除监听时注意点:     
-1. 若在listener函数中设置新的listenr或者删除旧的listenr，这些改动只会在下一次事件触发时生效。不会影响到本次事件触发的listener执行       
+1. 若在listener函数中设置新的listener或者删除旧的listener，这些改动只会在下一次事件触发时生效。不会影响到本次事件触发的listener执行       
 
 ```
 监听事件：
