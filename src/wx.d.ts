@@ -23,6 +23,7 @@ interface backAudio {
     singer: string
     coverImgUrl: string
     webUrl: string
+    protocol: string
     play: () => void
     pause: () => void
     stop: () => void

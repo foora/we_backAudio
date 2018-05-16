@@ -158,6 +158,9 @@ class AudioPlayer {
         this.audio.title = playObj.title || '未知';
         this.audio.epname = playObj.epname || '未知';
         this.audio.singer = playObj.singer || '未知';
+        if (playObj.protocol) {
+            this.audio.protocol = playObj.protocol;
+        }
         if (playObj.coverImgUrl) {
             this.audio.coverImgUrl = playObj.coverImgUrl;
         }
