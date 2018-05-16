@@ -258,7 +258,7 @@ class AudioPlayer {
         this.audio.onPause(() => this.eventManger.emit('pause'));
         this.audio.onStop(() => this.eventManger.emit('stop'));
         this.audio.onTimeUpdate(() => this.eventManger.emit('timeupdate'));
-        this.audio.onError((e) => this.eventManger.emit('error'));
+        this.audio.onError((e) => this.eventManger.emit('error', e));
         this.audio.onWaiting(() => this.eventManger.emit('waiting'));
         // 监听原生音频播放器事件
         if (isIOS) {
