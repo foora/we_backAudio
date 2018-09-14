@@ -28,6 +28,7 @@ playList数组数据结构
     singer: 歌手名字||未知
     coverImgUrl: 封面图url || undefined
     webUrl: 页面链接，用于原生音频播放器分享功能 || undefined
+    protocol: 音频协议，默认'http',设置'hls'可以支持播放 HLS 协议的直播音频。只支持基础库版本>=1.9.94
 }
 audio.setList(playList);
 
@@ -79,7 +80,7 @@ index - 0:顺序播放， 1:随机播放 ， 2:单曲循环
 #### 设置事件监听 
 
 支持的事件(对应小程序的原生事件):
-"play"|"canplay"|"next"|"prev"|"pause"|"stop"|"ended"|"timeupdate"|"error"|"waiting"
+"play"|"canplay"|"next"|"prev"|"pause"|"stop"|"ended"|"timeupdate"|"error"|"waiting"|"seeking"|"seeked"
 
 prev和next事件携带两个参数:     
 -    参数一:当前播放音频的信息；     

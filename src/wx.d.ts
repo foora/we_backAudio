@@ -38,6 +38,8 @@ interface backAudio {
     onNext: (callback: () => void) => void
     onError: (callback: (err?: AudioError) => void) => void
     onWaiting: (callback: () => void) => void
+    onSeeking: (callback: () => void) => void
+    onSeeked: (callback: () => void) => void
 }
 
 interface backAudioManager {

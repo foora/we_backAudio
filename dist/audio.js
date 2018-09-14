@@ -263,6 +263,8 @@ class AudioPlayer {
         this.audio.onTimeUpdate(() => this.eventManger.emit('timeupdate'));
         this.audio.onError((e) => this.eventManger.emit('error', e));
         this.audio.onWaiting(() => this.eventManger.emit('waiting'));
+        this.audio.onSeeking(() => this.eventManger.emit('seeking'));
+        this.audio.onSeeked(() => this.eventManger.emit('seeked'));
         // 监听原生音频播放器事件
         if (isIOS) {
             // ios系统音乐播放面板下一曲
