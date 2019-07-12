@@ -172,7 +172,7 @@ export default class AudioPlayer {
             throw new TypeError('listener is not a function');
         }
         let fn = (...args) => {
-            listener.apply(null, args);
+            listener.apply<null, any[], void>(null, args);
             this.eventManger.remove(name, fn);
         }
         this.eventManger.add(name, fn);

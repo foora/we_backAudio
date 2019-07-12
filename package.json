@@ -14,10 +14,10 @@
     "build": "gulp"
   },
   "devDependencies": {
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-typescript": "^4.0.1",
-    "rollup": "^0.57.1",
-    "typescript": "^2.7.2"
+    "del": "^5.0.0",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^5.0.1",
+    "rollup": "^1.16.7",
+    "typescript": "^3.5.3"
   }
 }

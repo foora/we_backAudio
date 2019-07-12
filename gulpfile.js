@@ -10,7 +10,7 @@ gulp.task('compile', () => {
         .js.pipe(gulp.dest("compile"));
 });
 
-gulp.task('bundle', ['compile'], async () => {
+gulp.task('bundle', async () => {
     const bundle = await rollup.rollup({
         input: './compile/index.js'
     });
@@ -20,4 +20,6 @@ gulp.task('bundle', ['compile'], async () => {
     })
 })
 
-gulp.task('default', ['bundle'], () => del(['compile']))
+gulp.task('clean', () => del(['compile']))
+
+exports.default = gulp.series('compile', 'bundle', 'clean')
